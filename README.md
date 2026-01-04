@@ -114,6 +114,7 @@ The model was trained for 40 epochs. The Learning Rate Scheduler triggered multi
 ## Visual Results
 ### Confusion Matrix:
 > The matrix shows a strong diagonal, indicating correct classifications.
+![Confusion Matrix](assets/confusion_matrix.png)
 
 ### Explainability (Grad-CAM):
 > To build trust, we visualize where the AI looks. The heatmap below overlays the gradient activation on the original image.
@@ -121,6 +122,7 @@ The model was trained for 40 epochs. The Learning Rate Scheduler triggered multi
 > Observation: The "Hot" (Red/Yellow) areas align perfectly with the necrotic brown lesions on the leaf.
 >
 > Conclusion: The model is learning biological features, not background noise.
+![Grad-CAM Explainability](assets/gradcam.png)
 
 ## 5. Discussion
 ### Effectiveness of ResNets:
