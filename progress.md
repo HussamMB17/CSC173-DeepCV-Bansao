@@ -1,23 +1,26 @@
-# Project Progress Log
+# Project Development Log
 
 **Student:** Hussam Bansao
 
-## Week 1: Data Preparation & Exploration
-* [x] Set up Google Colab environment and mounted Google Drive.
-* [x] Loaded the Rice Leaf Disease dataset from `/content/drive/MyDrive/DeepRice_Project/rice_data`.
-* [x] Implemented data augmentation: `RandomRotation(15)` and `RandomHorizontalFlip()` to handle the small dataset size (120 images).
-* [x] Split data into **80% Training** and **20% Testing**.
+## Phase 1: Data Preparation [Week 1]
+- [x] Collected dataset for 3 classes: Bacterial leaf blight, Brown spot, Leaf smut.
+- [x] **Challenge:** Dataset was extremely small (approx 120 images).
+- [x] **Solution:** Implemented robust PyTorch `transforms` including Rotation, Color Jitter, and Flipping to synthetically expand the dataset diversity.
 
-## Week 2: Model Architecture (RiceNet)
-* [x] Designed `RiceNet`, a custom CNN with 3 convolutional layers.
-* [x] Added `Dropout(0.5)` in the fully connected layer to reduce overfitting.
-* [x] Implemented the training loop with `CrossEntropyLoss` and `Adam` optimizer.
+## Phase 2: Architecture Design [Week 2]
+- [x] Initial design: Simple 3-Layer CNN (`RiceNet`).
+- [x] **Upgrade:** Refactored architecture to `RiceResNet` using **Residual Blocks** and **Batch Normalization** to improve training stability and depth.
+- [x] Implemented Global Average Pooling to reduce parameter count and prevent overfitting.
 
-## Week 3: Training & Evaluation
-* [x] Trained the model for 40 epochs.
-* [x] **Results:** Achieved a final test accuracy of **75.00%**.
-* [x] Saved the trained model weights to `rice_model.pth`.
+## Phase 3: Training & Optimization [Week 3]
+- [x] **Baseline:** Initial training yielded ~75% accuracy.
+- [x] **Optimization:** Added `ReduceLROnPlateau` scheduler.
+    - *Observation:* Learning rate dropped from 0.001 to 0.000031 during training, allowing the model to fine-tune weights.
+- [x] **Result:** Final Test Accuracy improved to **87.50%**.
+- [x] **Metric:** Achieved 100% Recall on "Brown Spot" class.
 
-## Week 4: Explainability
-* [x] Implemented **Saliency Maps** to visualize gradients.
-* [x] Validated that the model is looking at the disease spots (lesions) rather than the background.
+## Phase 4: Explainability & Finalization [Week 4]
+- [x] Implemented **Grad-CAM** (Gradient-weighted Class Activation Mapping).
+- [x] Verified that the model focuses on disease spots and not background artifacts.
+- [x] **Engineering:** Migrated code from Google Colab to a modular VS Code structure.
+- [x] Ensured **Reproducibility** by setting random seeds (`42`).

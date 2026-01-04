@@ -1,67 +1,88 @@
-# DeepRice: Rice Leaf Disease Classification
+# DeepRice: Explainable AI for Rice Disease Diagnosis
 
 **CSC173 Intelligent Systems Final Project** *Mindanao State University - Iligan Institute of Technology*
 
-**Student:** Hussam Bansao  
+**Student:** Hussam M. Bansao, 2022-0484  
 **Semester:** AY 2025-2026 Sem 1  
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org) [![PyTorch](https://img.shields.io/badge/PyTorch-2.0-orange)](https://pytorch.org)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)](https://python.org)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.1-orange?logo=pytorch)](https://pytorch.org)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
+## 📌 Abstract
+Rice diseases such as **Bacterial Leaf Blight**, **Brown Spot**, and **Leaf Smut** are major threats to food security in Mindanao. Early diagnosis is critical but often inaccessible. **DeepRice** is a deep learning system powered by **RiceResNet**, a custom Residual Convolutional Neural Network.
+
+Trained on a small, augmented dataset of field images, the model achieves **87.50% Test Accuracy**. Unlike standard "black box" classifiers, this project implements **Explainable AI (XAI)** using **Grad-CAM** (Gradient-weighted Class Activation Mapping), providing visual heatmaps that prove the model identifies specific disease lesions rather than background noise.
 
 ---
 
-## Abstract
-Rice diseases such as Bacterial Leaf Blight, Brown Spot, and Leaf Smut significantly reduce agricultural yield in the Philippines. Identifying these diseases early is difficult for non-experts. This project, **DeepRice**, implements a deep computer vision system using a custom Convolutional Neural Network (RiceNet) to classify these diseases automatically. Trained on a dataset of 120 field images, the model utilizes data augmentation techniques to achieve a classification accuracy of **75%**. Furthermore, this project implements interpretability techniques using Saliency Maps, proving that the model correctly identifies disease lesions on the leaves rather than background noise.
-
-## Table of Contents
-- [Introduction](#introduction)
-- [Methodology](#methodology)
-- [Experiments & Results](#experiments--results)
-- [Demo](#demo)
-- [Conclusion](#conclusion)
-- [Installation](#installation)
+## 📊 Key Results
+| Metric | Result | Notes |
+| :--- | :--- | :--- |
+| **Accuracy** | **87.50%** | On unseen test data |
+| **Brown Spot Recall** | **1.00** | Detected 100% of Brown Spot cases |
+| **Blight Precision** | **1.00** | Zero false positives for Bacterial Blight |
+| **Training Loss** | **0.015** | Converged using Learning Rate Scheduling |
 
 ---
 
-## Introduction
-Rice farming is a critical economic activity in Mindanao. Traditional disease diagnosis relies on visual inspection by experts, who are not always available. This project aims to bridge that gap by providing an automated classification tool.
+## 🧠 Methodology
 
-## Methodology
-The solution uses **PyTorch** to implement a custom CNN named `RiceNet`.
+### 1. Dataset & Preprocessing
+* **Source:** Custom curated dataset (Bacterial leaf blight, Brown spot, Leaf smut).
+* **Challenge:** Limited data (~120 images).
+* **Solution (Advanced Augmentation):** To prevent overfitting, the training pipeline employs:
+    * Random Rotations (±20°)
+    * Color Jitter (Brightness/Contrast)
+    * Horizontal & Vertical Flips
+    * Normalization (ImageNet Standards)
 
-### 1. Dataset
-The dataset consists of 120 images divided into three classes:
-1.  Bacterial leaf blight
-2.  Brown spot
-3.  Leaf smut
+### 2. Architecture: RiceResNet
+Instead of a standard CNN, I implemented a **Residual Network** to allow for deeper feature extraction without vanishing gradients.
+* **Backbone:** 3 Residual Blocks with Batch Normalization and ReLU.
+* **Shortcut Connections:** `x + F(x)` logic to preserve information across layers.
+* **Classifier:** Global Average Pooling -> Linear Layer.
 
-Preprocessing includes resizing to 128x128 pixels and normalizing RGB channels to (0.5, 0.5, 0.5).
+### 3. Engineering Features
+* **Reproducibility:** Seeded environment (`seed=42`) ensures consistent results.
+* **Smart Training:** Implemented `ReduceLROnPlateau` scheduler to dynamically lower the learning rate when validation accuracy plateaus.
+* **Explainability:** Integrated **Grad-CAM** hooks to visualize the last convolutional layer's attention.
 
-### 2. Network Architecture
-`RiceNet` consists of three convolutional blocks:
-* **Conv1**: 3 input channels -> 32 filters (3x3 kernel) + ReLU + MaxPool
-* **Conv2**: 32 -> 64 filters + ReLU + MaxPool
-* **Conv3**: 64 -> 128 filters + ReLU + MaxPool
-* **FC Layers**: Flatten -> 512 neurons -> Dropout(0.5) -> 3 output classes.
+---
 
-## Experiments & Results
-The model was trained for **40 epochs** using the Adam optimizer (lr=0.001).
+## 📉 Visual Experiments
 
-* **Final Loss:** ~0.17
-* **Test Accuracy:** **75.00%**
+### Confusion Matrix
+The model shows strong diagonal performance.
+![Confusion Matrix](assets/confusion_matrix.png)
 
-### Interpretability (Saliency Map)
-To ensure trust, I implemented Saliency Maps. The visualization below shows the original leaf (left) and the heatmap (right), indicating that the neural network focuses on the discolored lesions to make its prediction.
+### Explainability (Grad-CAM)
+The heatmap below demonstrates the model's focus. The **red regions** indicate where the neural network "looked" to make its decision. As shown, it focuses strictly on the necrotic lesions on the leaf surface.
 
-*(Note: Insert a screenshot of your notebook's last cell output here)*
+![Grad-CAM Explainability](assets/gradcam.png)
 
-## Demo
-A video demonstration of the project can be found in the `demo/` folder:
-`demo/CSC173_Bansao_Final.mp4`
+---
 
-## Conclusion
-DeepRice successfully demonstrates that a lightweight CNN can classify rice diseases with reasonable accuracy (75%) even on a small dataset. Future work would involve expanding the dataset and deploying the model to a mobile app for field testing.
+## 🛠 Installation & Usage
 
-## Installation
-1. Clone the repo:
-   ```bash
-   git clone [https://github.com/yourusername/csc173-deeprice.git](https://github.com/yourusername/csc173-deeprice.git)
+1.  **Clone the Repository**
+    ```bash
+    git clone [https://github.com/hussammb17/csc173-deepcv-bansao.git](https://github.com/hussammb17/csc173-deepcv-bansao.git)
+    cd csc173-deepcv-bansao
+    ```
+
+2.  **Install Dependencies**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3.  **Run the Training/Inference Notebook**
+    Open `CSC173_FinalProj.ipynb` in VS Code or Jupyter Lab and Run All Cells.
+    * The dataset is included in the `rice_data/` folder.
+    * No external downloads required.
+
+## 🎥 Demo
+A full video walkthrough demonstrating the training process and Saliency Map generation can be found in the `demo/` folder.
+
+---
+
