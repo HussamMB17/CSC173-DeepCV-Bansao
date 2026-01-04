@@ -160,4 +160,7 @@ dependencies: torch >=2.0, torchvision, matplotlib, seaborn, opencv-python
 - He, K., et al., (2016). "Deep Residual Learning for Image Recognition." CVPR.
 - Selvaraju, R.R., et al., (2017). "Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization." ICCV.
 - Mohanty, S.P., et al., (2016). "Using Deep Learning for Image-Based Plant Disease Detection." Frontiers in Plant Science.
-🌐 [GitHub Pages](https://hussammb17.github.io/csc173-deepcv-bansao/)
+
+---
+## Github Pages
+View this project site: 🌐 [GitHub Pages](https://hussammb17.github.io/csc173-deepcv-bansao/)
