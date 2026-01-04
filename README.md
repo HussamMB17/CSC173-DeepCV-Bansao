@@ -166,4 +166,4 @@ dependencies: torch >=2.0, torchvision, matplotlib, seaborn, opencv-python
 
 ---
 ## Github Pages
-View this project site: 🌐 [View Project Website](https://hussammb17.github.io/csc173-deepcv-bansao/)
+View this project site: 🌐 [View Project Website](https://hussammb17.github.io/CSC173-DeepCV-Bansao/)
