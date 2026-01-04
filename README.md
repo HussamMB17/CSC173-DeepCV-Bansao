@@ -141,7 +141,10 @@ The dataset consists of images taken in specific lighting conditions. Real-world
 ## 7. Conclusion
 DeepRice successfully demonstrates that State-of-the-Art techniques like Residual Learning and Grad-CAM can be applied to lightweight agricultural models. By achieving 87.5% accuracy with full interpretability, this project bridges the gap between high-tech AI and practical, trustworthy farming tools.
 
-## 8. Installation
+## 9. Final Video Demo
+> **[Click here to watch the project walkthrough video](demo/CSC173_Bansao_Final.mp4)**
+
+## 10. Installation
 ```bash
 # 1. Clone the repository
 git clone [https://github.com/hussammb17/csc173-deepcv-bansao.git](https://github.com/hussammb17/csc173-deepcv-bansao.git)
