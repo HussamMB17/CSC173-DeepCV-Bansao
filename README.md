@@ -2,7 +2,7 @@
 
 **CSC173 Intelligent Systems Final Project** *Mindanao State University - Iligan Institute of Technology*
 
-**Student:** Hussam Bansao  
+**Student:** Hussam M. Bansao, 2022-0484
 **Semester:** AY 2025-2026 Sem 1  
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)](https://python.org)
